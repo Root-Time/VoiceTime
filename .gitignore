@@ -5,7 +5,7 @@ __pycache__/
 
 # Own Things
 token.json
-.idea
+.idea/
 
 # C extensions
 *.so
