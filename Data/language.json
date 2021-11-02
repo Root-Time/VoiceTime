@@ -1,0 +1,405 @@
+{
+    "Konfiguration": {
+        "de": "Konfiguration",
+        "en": "Configuration"
+    },
+    "Die Sprache wurde auf {} umgestellt": {
+        "de": "Die Sprache wurde auf {} umgestellt"
+    },
+    "Willst du den Server automatich konfigurieren oder manuel?": {
+        "de": "Willst du den Server automatich konfigurieren oder manuel?"
+    },
+    "automatisch": {
+        "de": "automatisch"
+    },
+    "manuel": {
+        "de": "manuel"
+    },
+    "Erstelle Kategorie *Voice-Text*\n> Erstelle *Voice-Setting*\n> Erstelle *logs*\nErstelle Kategorie *Voice-Channel*\n> Erstelle *>>> Talk*\n> Erstelle *>>> privat Talk*": {
+        "de": "Erstelle Kategorie *Voice-Text*\n> Erstelle *Voice-Setting*\n> Erstelle *logs*\nErstelle Kategorie *Voice-Channel*\n> Erstelle *>>> Talk*\n> Erstelle *>>> privat Talk*"
+    },
+    "__Kategorie *Voice-Text* wurde erstellt\n> *Voice-Setting* wurde erstellt\n> *logs* wurde erstellt\nKategorie *Voice-Channel* wurde erstellt\n> *>>> Talk* wurde erstellt\n> *>>> privat Talk* wurde erstellt__": {
+        "de": "__Kategorie *Voice-Text* wurde erstellt\n> *Voice-Setting* wurde erstellt\n> *logs* wurde erstellt\nKategorie *Voice-Channel* wurde erstellt\n> *>>> Talk* wurde erstellt\n> *>>> privat Talk* wurde erstellt__"
+    },
+    "Kanal \u00dcbersicht": {
+        "de": "Kanal \u00dcbersicht"
+    },
+    "**Voice-Setting** \n> Hier wird der erstelle Voice-Channel eingestellt\n**voice-logs**\n> Hier werden die Logs vom Voice Channel gespeichert\n **Talk** \n> Hier wird der normale Sprachchat erstellt \n **private Talk** \n> Hier wird der private Sprachchat erstellt": {
+        "de": "**Voice-Setting** \n> Hier wird der erstelle Voice-Channel eingestellt\n**voice-logs**\n> Hier werden die Logs vom Voice Channel gespeichert\n **Talk** \n> Hier wird der normale Sprachchat erstellt \n **private Talk** \n> Hier wird der private Sprachchat erstellt"
+    },
+    "**INFO**": {
+        "de": "**INFO**"
+    },
+    "Du kannst jeden einzelnen Channel vom Bot umbennen und \u00fcberall verschieben!": {
+        "de": "Du kannst jeden einzelnen Channel vom Bot umbennen und \u00fcberall verschieben!"
+    },
+    "**__Normal Talk__** \nBitte trete den Channel bei der der **normale Talk** sein soll": {
+        "de": "**__Normal Talk__** \nBitte trete den Channel bei der der **normale Talk** sein soll"
+    },
+    "Bist du dir sicher das {} der neue **normal Talk** Channel ist?": {
+        "de": "Bist du dir sicher das {} der neue **normal Talk** Channel ist?"
+    },
+    "Ja": {
+        "de": "Ja"
+    },
+    "Nein": {
+        "de": "Nein"
+    },
+    "{} ist nun der neue **normal Talk**": {
+        "de": "{} ist nun der neue **normal Talk**"
+    },
+    "**__Normal Talk__** \nBitte trete den Channel bei der der **private Talk** sein soll": {
+        "de": "**__Normal Talk__** \nBitte trete den Channel bei der der **private Talk** sein soll"
+    },
+    "Wartet auf {}, das er einen Sprach Chat beitretet!": {
+        "de": "Wartet auf {}, das er einen Sprach Chat beitretet!"
+    },
+    "**__Private Talk__** \nBitte trete den Channel bei der der **private Talk** sein soll": {
+        "de": "**__Private Talk__** \nBitte trete den Channel bei der der **private Talk** sein soll"
+    },
+    "Bist du dir sicher das {} der neue **private Talk** Channel ist?": {
+        "de": "Bist du dir sicher das {} der neue **private Talk** Channel ist?"
+    },
+    "Best\u00e4tigung": {
+        "de": "Best\u00e4tigung"
+    },
+    "Kan\u00e4le": {
+        "de": "Kan\u00e4le"
+    },
+    "**__Normal Talk__** \nBitte trete den Channel bei der der **{} Talk** sein soll": {
+        "de": "**__Normal Talk__** \nBitte trete den Channel bei der der **{} Talk** sein soll"
+    },
+    "Bist du dir sicher das {} der neue **{} Talk** Channel ist?": {
+        "de": "Bist du dir sicher das {} der neue **{} Talk** Channel ist?"
+    },
+    "\n                            normal Talk   >>> {}\n                            privat Talk   >>> ...\n                            Voice-Setting >>> ...\n                            Voice-Logs    >>> ...                           \n                            ": {
+        "de": "\n                            normal Talk   >>> {}\n                            privat Talk   >>> ...\n                            Voice-Setting >>> ...\n                            Voice-Logs    >>> ...                           \n                            "
+    },
+    "\n                            normal Talk   >>> {}\n                            privat Talk   >>> {}\n                            Voice-Setting >>> ...\n                            Voice-Logs    >>> ...                           \n                            ": {
+        "de": "\n                            normal Talk   >>> {}\n                            privat Talk   >>> {}\n                            Voice-Setting >>> ...\n                            Voice-Logs    >>> ...                           \n                            "
+    },
+    "**__{} Talk__** \nBitte trete den Channel bei der der **{} Talk** sein soll": {
+        "de": "**__{} Talk__** \nBitte trete den Channel bei der der **{} Talk** sein soll"
+    },
+    "__{}__\n Bitte schreibe \"SELECT\" in channel der **{}** sein soll.": {
+        "de": "__{}__\n Bitte schreibe \"SELECT\" in channel der **{}** sein soll."
+    },
+    "__**{}**__\n Bitte schreibe \"SELECT\" in channel der **{}** sein soll.": {
+        "de": "__**{}**__\n Bitte schreibe \"SELECT\" in channel der **{}** sein soll."
+    },
+    "Kategorie {} wurde erstellt\n>TextChannel {} wurde erstellt\n>TextChannel {} wurde erstellt\nKategorie {} wurde erstellt\n>VoiceChannel {} wurde erstellt\n>VoiceChannel {} wurde erstellt": {
+        "de": "Kategorie {} wurde erstellt\n>TextChannel {} wurde erstellt\n>TextChannel {} wurde erstellt\nKategorie {} wurde erstellt\n>VoiceChannel {} wurde erstellt\n>VoiceChannel {} wurde erstellt"
+    },
+    "Kategorie {} wurde erstellt\n> {} wurde erstellt\n> {} wurde erstellt\nKategorie {} wurde erstellt\n> {} wurde erstellt\n> {} wurde erstellt": {
+        "de": "Kategorie {} wurde erstellt\n> {} wurde erstellt\n> {} wurde erstellt\nKategorie {} wurde erstellt\n> {} wurde erstellt\n> {} wurde erstellt"
+    },
+    "Bist du dir sicher das {} der neue **{}** Channel ist?": {
+        "de": "Bist du dir sicher das {} der neue **{}** Channel ist?"
+    },
+    "Wartet auf {}, das er einem Text Channel \"SELECT\" schreibt!": {
+        "de": "Wartet auf {}, das er einem Text Channel \"SELECT\" schreibt!"
+    },
+    "Bist du dir sicher das {} der neue **{}* Channel ist?": {
+        "de": "Bist du dir sicher das {} der neue **{}* Channel ist?"
+    },
+    "\n                            normal Talk   >>> {}\n                            privat Talk   >>> {}\n                            Voice-Setting >>> {}\n                            Voice-Logs    >>> {}                           \n                            ": {
+        "de": "\n                            normal Talk   >>> {}\n                            privat Talk   >>> {}\n                            Voice-Setting >>> {}\n                            Voice-Logs    >>> {}                           \n                            "
+    },
+    "\n                            normal Talk   >>> {}\n                            privat Talk   >>> {}\n                            Voice-Setting >>> {}\n                            Voice-Logs    >>> ...                           \n                            ": {
+        "de": "\n                            normal Talk   >>> {}\n                            privat Talk   >>> {}\n                            Voice-Setting >>> {}\n                            Voice-Logs    >>> ...                           \n                            "
+    },
+    "Du kannst jeden, vom Bot erstellten, Kanal umbenennen und verschieben!": {
+        "de": "Du kannst jeden, vom Bot erstellten, Kanal umbenennen und verschieben!"
+    },
+    "Willst du den Channel **Warteschlange** hinzuf\u00fcgen?\n> Das ist der ": {
+        "de": "Willst du den Channel **Warteschlange** hinzuf\u00fcgen?\n> Das ist der "
+    },
+    "Willst du den Voice Channel **Warteschlange** hinzuf\u00fcgen?": {
+        "de": "Willst du den Voice Channel **Warteschlange** hinzuf\u00fcgen?"
+    },
+    "**__Warteschlange__** \nBitte trete den Channel bei der der **Warteschlange Talk** sein soll": {
+        "de": "**__Warteschlange__** \nBitte trete den Channel bei der der **Warteschlange Talk** sein soll"
+    },
+    "Warteschlange": {
+        "de": "Warteschlange"
+    },
+    "Warteschlange >>> {}": {
+        "de": "Warteschlange >>> {}"
+    },
+    "\n                        normal Talk   >>> {}\n                        privat Talk   >>> {}\n                        Warteschlange >>> {}\n                        Voice-Setting >>> ...\n                        Voice-Logs    >>> ...                           \n                        ": {
+        "de": "\n                        normal Talk   >>> {}\n                        privat Talk   >>> {}\n                        Warteschlange >>> {}\n                        Voice-Setting >>> ...\n                        Voice-Logs    >>> ...                           \n                        "
+    },
+    "\n                            normal Talk   >>> {}\n                            privat Talk   >>> {}{}\n                            Voice-Setting >>> {}\n                            Voice-Logs    >>> ...                           \n                            ": {
+        "de": "\n                            normal Talk   >>> {}\n                            privat Talk   >>> {}{}\n                            Voice-Setting >>> {}\n                            Voice-Logs    >>> ...                           \n                            "
+    },
+    "\nWarteschlange >>> {}": {
+        "de": "\nWarteschlange >>> {}"
+    },
+    "Ne<in": {
+        "de": "Ne<in"
+    },
+    "\n                            normal Talk   >>> {}\n                            privat Talk   >>> {}{}\n                            Voice-Setting >>> {}\n                            Voice-Logs    >>> {}                           \n                            ": {
+        "de": "\n                            normal Talk   >>> {}\n                            privat Talk   >>> {}{}\n                            Voice-Setting >>> {}\n                            Voice-Logs    >>> {}                           \n                            "
+    },
+    "Normal Talk und Privat Talk d\u00fcrfen nicht den gleichen Channel haben!": {
+        "de": "Normal Talk und Privat Talk d\u00fcrfen nicht den gleichen Channel haben!"
+    },
+    "Wartschlange und Normal Talk d\u00fcrfen nicht den gleichen Channel haben!": {
+        "de": "Wartschlange und Normal Talk d\u00fcrfen nicht den gleichen Channel haben!"
+    },
+    "Wartschlange und Privat Talk d\u00fcrfen nicht den gleichen Channel haben!": {
+        "de": "Wartschlange und Privat Talk d\u00fcrfen nicht den gleichen Channel haben!"
+    },
+    "Voice-Setting und Voice-logs d\u00fcrfen nicht den gleichen Channel haben!": {
+        "de": "Voice-Setting und Voice-logs d\u00fcrfen nicht den gleichen Channel haben!"
+    },
+    "Soll der Voice-Logs Channel \u00d6ffentlich oder Privat sein?": {
+        "de": "Soll der Voice-Logs Channel \u00d6ffentlich oder Privat sein?"
+    },
+    "\u00d6ffentlich": {
+        "de": "\u00d6ffentlich"
+    },
+    "Privat": {
+        "de": "Privat"
+    },
+    "Die Einstellungen werden gespeichert!": {
+        "de": "Die Einstellungen werden gespeichert!"
+    },
+    "Der Bot ist fertig Eingerichtet! \nSie k\u00f6nnen nun den Channel als Verwaltung Channel f\u00fcr diesen Bot benutzen oder l\u00f6schen!": {
+        "de": "Der Bot ist fertig Eingerichtet! \nSie k\u00f6nnen nun den Channel als Verwaltung Channel f\u00fcr diesen Bot benutzen oder l\u00f6schen!"
+    },
+    "Wenn du den Server neu einrichten willst dann mache **//config**": {
+        "de": "Wenn du den Server neu einrichten willst dann mache **//config**"
+    },
+    "Erstelle Kategorie *Voice-Text*\n> Erstelle *Voice-Setting*\n> Erstelle *Voice-Logs*\nErstelle Kategorie *Voice-Channel*\n> Erstelle *>>> Talk*\n> Erstelle *>>> privat Talk*": {
+        "de": "Erstelle Kategorie *Voice-Text*\n> Erstelle *Voice-Setting*\n> Erstelle *Voice-Logs*\nErstelle Kategorie *Voice-Channel*\n> Erstelle *>>> Talk*\n> Erstelle *>>> privat Talk*"
+    },
+    "Wenn du den Server neu einrichten willst dann mache **//restart**": {
+        "de": "Wenn du den Server neu einrichten willst dann mache **//restart**"
+    },
+    "{}\n Darf {} beitreten?": {
+        "de": "{}\n Darf {} beitreten?"
+    },
+    "{} darf {} beitreten?": {
+        "de": "{} darf {} beitreten?"
+    },
+    "Du bist nicht berechtigt diesen Knopf zu dr\u00fccken!": {
+        "de": "Du bist nicht berechtigt diesen Knopf zu dr\u00fccken!"
+    },
+    "Du hast die Anfrage abgebrochen!": {
+        "de": "Du hast die Anfrage abgebrochen!"
+    },
+    "Voice Chat von {}": {
+        "de": "Voice Chat von {}"
+    },
+    "Das ist der Voice Chat von {} hier kannst du mit den Leuten aus dem Voice Chat Nachrichten verschicken": {
+        "de": "Das ist der Voice Chat von {} hier kannst du mit den Leuten aus dem Voice Chat Nachrichten verschicken"
+    },
+    "INFO": {
+        "de": "INFO"
+    },
+    "Du kannst nur den Channel so lange sehen solange du auch drin bist!": {
+        "de": "Du kannst nur den Channel so lange sehen solange du auch drin bist!"
+    },
+    "Du kannst diesen Text Channel nur solange sehen wie du auch im jeweiligen Sprachkanal bist!": {
+        "de": "Du kannst diesen Text Channel nur solange sehen wie du auch im jeweiligen Sprachkanal bist!"
+    },
+    "In dem du auf Nein gedr\u00fcckt hast, hast du die Anfrage abgebrochen!": {
+        "de": "In dem du auf Nein gedr\u00fcckt hast, hast du die Anfrage abgebrochen!"
+    },
+    "Du kannst nicht zwei gleiche Private Channel besitzten, bitte \u00fcbergebe den Channel an wenn anders mit `//owner {member}`. \nWenn du dies \u00e4ndern m\u00f6chtest bitte frage ein Admin ob er den Befehl `//disable limit` aus\u00fcben kann": {
+        "de": "Du kannst nicht zwei gleiche Private Channel besitzten, bitte \u00fcbergebe den Channel an wenn anders mit `//owner {member}`. \nWenn du dies \u00e4ndern m\u00f6chtest bitte frage ein Admin ob er den Befehl `//disable limit` aus\u00fcben kann"
+    },
+    "Du kannst nun in Channel {} von {} beitreten!": {
+        "de": "Du kannst nun in Channel {} von {} beitreten!"
+    },
+    "Deaktiviere diese Benachrichtigung": {
+        "de": "Deaktiviere diese Benachrichtigung"
+    },
+    "beitreten": {
+        "de": "beitreten"
+    },
+    "Private Benachrichtigung wurde deaktiviert!": {
+        "de": "Private Benachrichtigung wurde deaktiviert!"
+    },
+    "Wenn du sie wieder aktivieren willst, gehe auf einem Server und gebe `//set notification on`": {
+        "de": "Wenn du sie wieder aktivieren willst, gehe auf einem Server und gebe `//set notification on`"
+    },
+    "{} hat den Channel erstellt!": {
+        "de": "{} hat den Channel erstellt!"
+    },
+    "\n{member.mention} ist beigetreten": {
+        "de": "\n{member.mention} ist beigetreten"
+    },
+    "\n<@374613458957631492> ist beigetreten": {
+        "de": "\n<@374613458957631492> ist beigetreten"
+    },
+    "\n<@374613458957631492> hat verlassen": {
+        "de": "\n<@374613458957631492> hat verlassen"
+    },
+    "\n<@795306274467348510> hat verlassen": {
+        "de": "\n<@795306274467348510> hat verlassen"
+    },
+    "\n<@795306274467348510> ist beigetreten": {
+        "de": "\n<@795306274467348510> ist beigetreten"
+    },
+    "\n{} {}hat verlassen": {
+        "de": "\n{} {}hat verlassen"
+    },
+    "\n<@795306274467348510> ownerist beigetreten": {
+        "de": "\n<@795306274467348510> ownerist beigetreten"
+    },
+    "\n<@277029967978561537>  ist beigetreten": {
+        "de": "\n<@277029967978561537>  ist beigetreten"
+    },
+    "\n{} {} hat verlassen": {
+        "de": "\n{} {} hat verlassen"
+    },
+    "\n<@795306274467348510> **(owner)** ist beigetreten": {
+        "de": "\n<@795306274467348510> **(owner)** ist beigetreten"
+    },
+    "\n<@736606235805089862>  ist beigetreten": {
+        "de": "\n<@736606235805089862>  ist beigetreten"
+    },
+    "\n<@374613458957631492>  ist beigetreten": {
+        "de": "\n<@374613458957631492>  ist beigetreten"
+    },
+    "\n<@234377832833351680>  ist beigetreten": {
+        "de": "\n<@234377832833351680>  ist beigetreten"
+    },
+    "\n<@277029967978561537>  ist beigetreten!\n2021-09-01 22:25:17.869361": {
+        "de": "\n<@277029967978561537>  ist beigetreten!\n2021-09-01 22:25:17.869361"
+    },
+    "\n<@234377832833351680>  ist beigetreten!\n2021-09-01 22:25:19.580468": {
+        "de": "\n<@234377832833351680>  ist beigetreten!\n2021-09-01 22:25:19.580468"
+    },
+    "\n<@736606235805089862>  ist beigetreten!\n2021-09-01 22:25:20.169661": {
+        "de": "\n<@736606235805089862>  ist beigetreten!\n2021-09-01 22:25:20.169661"
+    },
+    "\n<@277029967978561537>  ist beigetreten!\n2021-09-01 22:31:15.621677": {
+        "de": "\n<@277029967978561537>  ist beigetreten!\n2021-09-01 22:31:15.621677"
+    },
+    "\n<@234377832833351680>  ist beigetreten!\n2021-09-01 22:31:16.953015": {
+        "de": "\n<@234377832833351680>  ist beigetreten!\n2021-09-01 22:31:16.953015"
+    },
+    "\n{} {} hat verlassen!\n{}": {
+        "de": "\n{} {} hat verlassen!\n{}"
+    },
+    "\n<@277029967978561537>  ist beigetreten!\n2021-09-01 22:31:19.304110": {
+        "de": "\n<@277029967978561537>  ist beigetreten!\n2021-09-01 22:31:19.304110"
+    },
+    "\n<@234377832833351680>  ist beigetreten!\n2021-09-01 22:31:21.208575": {
+        "de": "\n<@234377832833351680>  ist beigetreten!\n2021-09-01 22:31:21.208575"
+    },
+    "\n<@277029967978561537>  ist beigetreten!\n2021-09-01 22:31:30.530418": {
+        "de": "\n<@277029967978561537>  ist beigetreten!\n2021-09-01 22:31:30.530418"
+    },
+    "\n<@234377832833351680>  ist beigetreten!\n2021-09-01 22:32:56.930125": {
+        "de": "\n<@234377832833351680>  ist beigetreten!\n2021-09-01 22:32:56.930125"
+    },
+    "\n<@277029967978561537>  ist beigetreten!\n2021-09-01 22:32:57.943239": {
+        "de": "\n<@277029967978561537>  ist beigetreten!\n2021-09-01 22:32:57.943239"
+    },
+    "\n<@795306274467348510> **(owner)** ist beigetreten!\n2021-09-01 22:33:25.864270": {
+        "de": "\n<@795306274467348510> **(owner)** ist beigetreten!\n2021-09-01 22:33:25.864270"
+    },
+    "\n<@234377832833351680>  ist beigetreten!\n2021-09-01 22:33:58.929394": {
+        "de": "\n<@234377832833351680>  ist beigetreten!\n2021-09-01 22:33:58.929394"
+    },
+    "\n<@277029967978561537>  ist beigetreten!\n2021-09-01 22:34:00.121778": {
+        "de": "\n<@277029967978561537>  ist beigetreten!\n2021-09-01 22:34:00.121778"
+    },
+    "\n<@234377832833351680>  ist beigetreten!\n2021-09-01 22:34:32.177167": {
+        "de": "\n<@234377832833351680>  ist beigetreten!\n2021-09-01 22:34:32.177167"
+    },
+    "\n<@736606235805089862>  ist beigetreten!\n2021-09-01 22:36:00.319212": {
+        "de": "\n<@736606235805089862>  ist beigetreten!\n2021-09-01 22:36:00.319212"
+    },
+    "\n<@736606235805089862>  ist beigetreten!\n2021-09-01 22:49:41.815468": {
+        "de": "\n<@736606235805089862>  ist beigetreten!\n2021-09-01 22:49:41.815468"
+    },
+    "\n<@277029967978561537>  ist beigetreten!\n2021-09-01 22:49:42.798460": {
+        "de": "\n<@277029967978561537>  ist beigetreten!\n2021-09-01 22:49:42.798460"
+    },
+    "{}\n{} {} hat verlassen!": {
+        "de": "{}\n{} {} hat verlassen!"
+    },
+    "\n<@795306274467348510> **(owner)** ist beigetreten!\n2021-09-01 22:50:21.169511": {
+        "de": "\n<@795306274467348510> **(owner)** ist beigetreten!\n2021-09-01 22:50:21.169511"
+    },
+    "\n<@795306274467348510> **(owner)** ist beigetreten!\n2021-09-01 22:50:30.194448": {
+        "de": "\n<@795306274467348510> **(owner)** ist beigetreten!\n2021-09-01 22:50:30.194448"
+    },
+    "{}\n{} {} ist beigetreten!": {
+        "de": "{}\n{} {} ist beigetreten!"
+    },
+    "**{} hat den Channel {} erstellt!": {
+        "de": "**{} hat den Channel {} erstellt!"
+    },
+    "um {}:{} am {}.{} ": {
+        "de": "um {}:{} am {}.{} "
+    },
+    "**{} hat den Channel um {} am {} erstellt!": {
+        "de": "**{} hat den Channel um {} am {} erstellt!"
+    },
+    "**{} hat den Channel um {} am {} erstellt!**": {
+        "de": "**{} hat den Channel um {} am {} erstellt!**"
+    },
+    "{}\n> {} {} ist beigetreten!": {
+        "de": "{}\n> {} {} ist beigetreten!"
+    },
+    "**{} hat den Channel um {} am {} erstellt!**\n": {
+        "de": "**{} hat den Channel um {} am {} erstellt!**\n"
+    },
+    "{}\n> {} {} hat verlassen!": {
+        "de": "{}\n> {} {} hat verlassen!"
+    },
+    "Du kannst den Channel nicht beitreten da der Channel gerade erstellt wird bitte versuche es gleich nochmal!": {
+        "de": "Du kannst den Channel nicht beitreten da der Channel gerade erstellt wird bitte versuche es gleich nochmal!"
+    },
+    "<@374613458957631492>": {
+        "de": "<@374613458957631492>"
+    },
+    "Darf {} beitreten?": {
+        "de": "Darf {} beitreten?"
+    },
+    "<@374613458957631492>\n<@795306274467348510> hat dir eine Freundschaftsanfrage geschickt!": {
+        "de": "<@374613458957631492>\n<@795306274467348510> hat dir eine Freundschaftsanfrage geschickt!"
+    },
+    "Ihr seit nun Freunde!": {
+        "de": "Ihr seit nun Freunde!"
+    },
+    "Schlie\u00dfen": {
+        "de": "Schlie\u00dfen"
+    },
+    "<@728204830559961178>\n<@374613458957631492> hat dir eine Freundschaftsanfrage geschickt!": {
+        "de": "<@728204830559961178>\n<@374613458957631492> hat dir eine Freundschaftsanfrage geschickt!"
+    },
+    "Hier kannst du mit den Leuten aus dem Voice Chat Nachrichten verschicken": {
+        "de": "Hier kannst du mit den Leuten aus dem Voice Chat Nachrichten verschicken"
+    },
+    "Du bist auf cooldown!": {
+        "de": "Du bist auf cooldown!"
+    },
+    "ist beigetreten": {
+        "de": "ist beigetreten"
+    },
+    "hat verlassen": {
+        "de": "hat verlassen"
+    },
+    "**{}**\nDu kannst nun den Channel {} von {} beitreten": {
+        "de": "**{}**\nDu kannst nun den Channel {} von {} beitreten"
+    },
+    "Du kannst nicht dich selbst reinlassen?": {
+        "de": "Du kannst nicht dich selbst reinlassen?"
+    },
+    "Beitreten": {
+        "de": "Beitreten"
+    },
+    "Deaktiviere Benachrichtigung": {
+        "de": "Deaktiviere Benachrichtigung"
+    },
+    "Wenn du sie wieder aktivieren willst, gehe auf einem Server und gebe `//set notification on` ein.": {
+        "de": "Wenn du sie wieder aktivieren willst, gehe auf einem Server und gebe `//set notification on` ein."
+    }
+}
