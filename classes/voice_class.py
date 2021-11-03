@@ -73,6 +73,17 @@ class VoiceClass:
     def l(self, text):
         return language(text, self.lang)
 
+    def save(self) -> dict:
+        save_dict = self.__dict__
+        save_dict['owner'] = self.owner.id
+        save_dict['guild'] = self.guild.id
+        save_dict['members'] = [member.id for member in self.members]
+        del save_dict['c']
+        if self.chat_id and self.mess.id:
+            save_dict['mess'] = self.mess.id
+
+        return save_dict
+
     async def delete(self, type=False):
         if self.chat():
             await self.chat().delete()

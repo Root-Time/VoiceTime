@@ -171,17 +171,29 @@ class VoiceJoin(commands.Cog):
 
         while True:
             try:
-                event = await self.client.wait_for('button_click', check=lambda _event: _event.message == dm_mess, timeout=30)
+                event = await self.client.wait_for(
+                    'button_click',
+                    check=lambda _event: _event.message == dm_mess,
+                    timeout=30
+                )
                 await event.respond(type=6)
             except asyncio.TimeoutError:
                 await dm_mess.edit(
                     components=[
-                        [Button(label=l('beitreten'), style=ButtonStyle.blue, id='1'),
-                         Button(label=l('Deaktiviere Benachrichtigung'), style=ButtonStyle.URL, url=str(link), id='2', disabled=True)]
+                        [Button(
+                            label=l('beitreten'),
+                            style=ButtonStyle.blue,
+                            id='1'
+                        ),
+                         Button(
+                             label=l('Deaktiviere Benachrichtigung'),
+                             style=ButtonStyle.URL, url=str(link),
+                             id='2',
+                             disabled=True
+                         )]
                     ]
                 )
                 return
-            await dm_mess.delete()
             break
 
         if member.id not in us.keys():

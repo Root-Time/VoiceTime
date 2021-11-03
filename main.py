@@ -52,7 +52,7 @@ client.load_extension('events.VoiceJoin')
 
 # Commands
 # client.load_extension("cogs.Friends")
-# TODO own cog for Friend / Block
+# TODO own cog for Friend & Block
 
 # Utils
 client.load_extension("cogs.Utils")
