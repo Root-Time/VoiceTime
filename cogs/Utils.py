@@ -13,7 +13,7 @@ class Utils(commands.Cog):
     @commands.command()
     async def delete(self, ctx):
         for channel in ctx.guild.channels:
-            if 'timeout' in channel.name.lower():
+            if 'timeout' in channel.name.lower() or 'hiddenstorm' in channel.name.lower():
                 await channel.delete()
 
     @commands.command()

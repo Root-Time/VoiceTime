@@ -36,3 +36,7 @@ def v(text, color="blue"):
 
 def i(text):
     return 'Info', text, 'o'
+
+
+def fs(text):
+    return embed('Friend System', text, 'g')
