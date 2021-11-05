@@ -58,7 +58,7 @@ class VoiceJoin(commands.Cog):
             await vt.to_chat(member, True)
             return
 
-        if member in fl.get(vt.owner.id, []):
+        if member.id in fl.get(vt.owner.id, []):
             await vt.to_chat(member, True)
             return
 
@@ -100,6 +100,7 @@ class VoiceJoin(commands.Cog):
                 event = await self.client.wait_for('button_click', check=lambda _event: _event.message == mess,
                                                    timeout=30)
             except asyncio.TimeoutError:
+                print('?')
                 # If Nobody pressed this button
                 if c.queue:
                     if member in c.queue.members:
@@ -107,6 +108,7 @@ class VoiceJoin(commands.Cog):
 
                 await asyncio.sleep(1)
                 if guild.get_channel(channel.id):
+                    print('??')
                     await channel.set_permissions(member, connect=True)
                 return
 
@@ -137,7 +139,8 @@ class VoiceJoin(commands.Cog):
             await event.respond(embed=error(l('Du bist nicht berechtigt diesen Knopf zu klicken!')))
 
         vt.add(member)
-        await vt.to_chat(member, True)
+        await channel.set_permissions(member, connect=True)
+        # await vt.to_chat(member, True)
 
         if c.queue:
             if member in c.queue.members and guild.get_channel(channel.id):
@@ -181,12 +184,12 @@ class VoiceJoin(commands.Cog):
                             style=ButtonStyle.blue,
                             id='1'
                         ),
-                         Button(
-                             label=l('Deaktiviere Benachrichtigung'),
-                             style=ButtonStyle.URL, url=str(link),
-                             id='2',
-                             disabled=True
-                         )]
+                            Button(
+                                label=l('Deaktiviere Benachrichtigung'),
+                                style=ButtonStyle.URL, url=str(link),
+                                id='2',
+                                disabled=True
+                            )]
                     ]
                 )
                 return

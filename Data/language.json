@@ -401,5 +401,14 @@
     },
     "Wenn du sie wieder aktivieren willst, gehe auf einem Server und gebe `//set notification on` ein.": {
         "de": "Wenn du sie wieder aktivieren willst, gehe auf einem Server und gebe `//set notification on` ein."
+    },
+    "ja": {
+        "de": "ja"
+    },
+    "Du bist nicht dazu berechtigt!": {
+        "de": "Du bist nicht dazu berechtigt!"
+    },
+    "{} und {} seit nun Freunde": {
+        "de": "{} und {} seit nun Freunde"
     }
 }

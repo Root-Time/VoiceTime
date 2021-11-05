@@ -50,7 +50,8 @@ class VoiceClass:
         await self().set_permissions(member, connect=True)
         is_owner = '**(owner)**' if member == self.owner else ''
 
-        last_message = await self.chat.fetch_message(self.chat.last_message_id)
+        if self.chat.last_message_id:
+            last_message = await self.chat.fetch_message(self.chat.last_message_id)
         date_time = datetime.now().strftime('%m.%d - %H:%M')
         if self.date == date_time:
             date = ''
@@ -83,7 +84,6 @@ class VoiceClass:
         save_dict['owner'] = self.owner.id
         # save_dict['guild'] = self.guild.id
         save_dict['members'] = [member.id for member in self.members]
-        print(save_dict['owner'])
 
         delete_keys = []
         for key, value in save_dict.items():

@@ -1,9 +1,10 @@
 import discord, json, copy
-from discord import Member
+from discord import Member, Guild
 from discord.ext import commands
 from discord_components import Button, ButtonStyle
 
 from Module.get_database import voice, fl
+from Module.set_database import update_fl
 from Utils.embed import embed, error, fs
 from Utils.language import language
 from classes.load_guild import LoadGuild
@@ -16,11 +17,13 @@ class Friends(commands.Cog):
 
     @commands.command()
     async def add(self, ctx, member: Member):
+        if ctx.author.bot:
+            return
         await ctx.message.delete()
-        owner = ctx.author
-        guild = ctx.guild
+        author: Member = ctx.author
+        guild: Guild = ctx.guild
 
-        if owner == member:
+        if author == member:
             return await ctx.channel.send(
                 embed=embed('Error', 'Du kannst dir selber keine Freundschaftsanfrage schicken!', 10038562),
                 delete_after=5)
@@ -28,13 +31,13 @@ class Friends(commands.Cog):
         c: LoadGuild = LoadGuild(guild)
         l = lambda text: language(text, c.lang)
 
-        if member.id in fl.get(owner.id, []):
+        if member.id in fl.get(author.id, []):
             await ctx.channel.send(
-                embed=embed('Friend System', f'<@{owner.id}> und <@{player.id}> sind schon befreundet!', 10038562),
+                embed=embed('Friend System', f'<@{author.id}> und <@{member.id}> sind schon befreundet!', 10038562),
                 delete_after=5)
             return
 
-        mess_ping = ctx.channel.send(f'{member.mention}')
+        mess_ping = await ctx.send(f'{member.mention}')
         await mess_ping.delete()
 
         mess = await ctx.channel.send(
@@ -60,14 +63,16 @@ class Friends(commands.Cog):
         await mess.delete()
 
         if event.component.id == 'nein':
-            mess_ping = await ctx.send(owner.mention)
+            mess_ping = await ctx.send(author.mention)
             await mess_ping.delete()
             await ctx.send(embed=error(l('Deine Anfrage würde abgelehnt!')), delete_after=15)
             return
 
-        fl.setdefault(owner.id, []).append(member.id)
+        fl.setdefault(author.id, []).append(member.id)
+        fl.setdefault(member.id, []).append(author.id)
+        update_fl()
 
-        await ctx.send(embed=fs(l('{} und {} seit nun Freunde').format(owner.mention, member.mention)), delete_after=15)
+        await ctx.send(embed=fs(l('{} und {} seit nun Freunde').format(author.mention, member.mention)), delete_after=15)
 
 
 def setup(client):

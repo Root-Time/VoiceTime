@@ -52,7 +52,7 @@ client.load_extension('events.VoiceLeave')
 client.load_extension('events.VoiceJoin')
 
 # Commands
-# client.load_extension("cogs.Friends")
+client.load_extension("commands.Friends")
 # TODO own cog for Friend & Block
 
 # Utils

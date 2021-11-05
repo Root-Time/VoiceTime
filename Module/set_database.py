@@ -1,7 +1,9 @@
 import json
 
 # TODO CONVERT TO DATABASE
-from Module.get_database import voice_backups
+import yaml
+
+from Module.get_database import voice_backups, fl
 
 
 def create_voice_backup(vc_id, voice_backup):
@@ -17,6 +19,11 @@ def update_voice_backup(vc_id, update_param, value):
 
     with open('Data/voice.json', 'w') as f:
         json.dump(voice_backups, f)
+
+
+def update_fl():
+    with open('Data/friend_list', 'w') as f:
+        yaml.dump(fl, f)
 
 
 def delete_voice_backup(vc_id):
