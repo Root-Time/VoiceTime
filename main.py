@@ -8,6 +8,7 @@ from discord.ext import commands
 from discord.ext.commands import CommandNotFound, MemberNotFound
 from discord_components import DiscordComponents
 
+from Module.get_database import get_client
 from Utils.embed import embed
 
 with open("Data/token.json", "r") as f:
@@ -21,7 +22,7 @@ Token = TokenList["VoiceTime"]
 INTENTS = discord.Intents.all()
 
 client: discord.client = commands.Bot(command_prefix=PREFIX, intents=INTENTS, description='Version 2.0.0a5-3rw8')
-
+get_client(client)
 
 @client.event
 async def on_ready():
@@ -56,7 +57,7 @@ client.load_extension('events.VoiceJoin')
 
 # Utils
 client.load_extension("cogs.Utils")
-
+client.load_extension('cogs.Regain')
 
 # bot.load_extension("cogs.newServer")
 # bot.load_extension("cogs.Languages_Converter")#

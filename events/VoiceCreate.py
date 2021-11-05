@@ -34,7 +34,7 @@ class VoiceCreate(commands.Cog):
 
         # GUILD Set bot up? Are Permissions right? Are all Channel exits?
         try:
-            c: LoadGuild = LoadGuild(guild, self.client)
+            c: LoadGuild = LoadGuild(guild)
         except:
             return
 
@@ -115,7 +115,7 @@ class VoiceCreate(commands.Cog):
 
             mess = await chat.send(embed=embed('VoiceChat', message_content))
 
-            vt.chat_id = chat.id
+            vt.chat = chat
             vt.mess = mess
             vt.content = message_content
 

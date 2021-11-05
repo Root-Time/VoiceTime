@@ -20,9 +20,6 @@ class VoiceLeave(commands.Cog):
     @commands.bot_has_permissions(manage_channels=True, move_members=True, manage_permissions=True, send_messages=True)
     async def on_voice_state_update(self, member: discord.Member, last: discord.VoiceState, _now):
         # Check
-        if member.bot:
-            return
-
         if not last:
             return
 
@@ -35,7 +32,7 @@ class VoiceLeave(commands.Cog):
 
         # GUILD Set bot up? Are Permissions right? Are all Channel exits?
         try:
-            c: LoadGuild = LoadGuild(guild, self.client)
+            c: LoadGuild = LoadGuild(guild)
         except:
             return
 

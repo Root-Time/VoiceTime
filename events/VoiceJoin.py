@@ -5,7 +5,7 @@ from discord import Guild, VoiceChannel
 from discord.ext import commands
 from discord_components import Button, ButtonStyle
 
-from Module.get_database import us
+from Module.get_database import us, client, fl
 from Utils.embed import voice, error, info
 from Utils.language import language
 from classes.load_guild import LoadGuild
@@ -27,9 +27,6 @@ class VoiceJoin(commands.Cog):
         channel: VoiceChannel = now.channel
 
         # Check: Level 1
-        if member.bot:
-            return
-
         if not now:
             return
 
@@ -38,7 +35,7 @@ class VoiceJoin(commands.Cog):
 
         # GUILD Set bot up? Are Permissions right? Are all Channel exits?
         try:
-            c: LoadGuild = LoadGuild(guild, self.client)
+            c: LoadGuild = LoadGuild(guild)
         except:  # TODO create own Exception NoData
             return
 
@@ -52,7 +49,7 @@ class VoiceJoin(commands.Cog):
 
         vt: VoiceClass = c.get_channel(channel)
 
-        if not vt.privat:
+        if not vt.privat or member.bot:
             await vt.to_chat(member, True)
             return
 
@@ -61,7 +58,7 @@ class VoiceJoin(commands.Cog):
             await vt.to_chat(member, True)
             return
 
-        if member in vt.fl:
+        if member in fl.get(vt.owner.id, []):
             await vt.to_chat(member, True)
             return
 
@@ -72,7 +69,6 @@ class VoiceJoin(commands.Cog):
 
         await channel.set_permissions(member, connect=False)
         # If Queue is None >> Move to None ?? Simple ??
-        print(c.queue)
         await member.move_to(c.queue)
 
         # Queue Things

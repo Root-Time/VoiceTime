@@ -5,12 +5,12 @@ from discord import Guild, Client, Member
 from Module.creating_permission import create_channel
 from Utils.embed import embed
 from Utils.language import language
-from Module.get_database import ss, temp_guild, voice
+from Module.get_database import ss, temp_guild, voice, client
 from cogs.Error_Hanlder import NoData
 
 
 class LoadGuild:
-    def __init__(self, guild: Guild, client=None):
+    def __init__(self, guild: Guild):
 
         self.ss = ss.get(guild.id)
         if not ss:
