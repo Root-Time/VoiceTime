@@ -3,17 +3,18 @@ from datetime import datetime
 import discord
 from discord import Member, Guild, TextChannel
 
+from Module.set_database import create_voice_backup, update_voice_backup
 from Utils.embed import embed
 from Utils.language import language
 from classes.load_guild import LoadGuild
-from Module.get_database import voice, fl, saved_voice
+from Module.get_database import voice, fl
 
 
 class VoiceClass:
     def __init__(self, owner, vc: discord.VoiceChannel, privat: bool):
+        self.id = vc.id
         self.owner: Member = owner
         self.guild: Guild = owner.guild
-        self.id = vc.id
         self.privat = privat
 
         # Chat
@@ -29,7 +30,7 @@ class VoiceClass:
         self.lang = self.c.lang
 
         voice.setdefault(self.guild.id, []).append(self)
-        self.save()
+        self.create_backup()
         # TODO save Class __DICT__ to DATABASE
 
     def rem(self, member):
@@ -77,19 +78,35 @@ class VoiceClass:
         self.content = content
         self.date = date
 
-    def save(self):
+    def create_backup(self):
         save_dict = self.__dict__.copy()
         save_dict['owner'] = self.owner.id
-        save_dict['guild'] = self.guild.id
+        # save_dict['guild'] = self.guild.id
         save_dict['members'] = [member.id for member in self.members]
-        del save_dict['c']
-        del save_dict['queue']  # TODO Need Check later
+        print(save_dict['owner'])
+
+        delete_keys = []
+        for key, value in save_dict.items():
+            if '_' in key or key in ['c', 'queue', 'date']:  # TODO Queue Need Check later
+                delete_keys.append(key)
+                continue
+            if type(value) not in [str, int, bool, type(None), list]:
+                save_dict[key] = value.id
+
+        for key in delete_keys:
+            del save_dict[key]
+
         if self.chat:
             save_dict['chat'] = self.chat.id
-            if self.mess.id:
-                save_dict['mess'] = self.mess.id
+        if self.mess:
+            save_dict['mess'] = self.mess.id
 
-        saved_voice(self.id, save_dict)
+        create_voice_backup(self.id, save_dict)
+
+    def update_backup(self, update_param, value):
+        if type(value) not in [str, int, bool, type(None)]:
+            value = value.id
+        update_voice_backup(self.id, update_param, value)
 
     async def delete(self, type=False):
         if self.chat:
@@ -115,8 +132,8 @@ class VoiceClass:
 
     @chat.setter
     def chat(self, chat):
-        self.save()
         self._chat = chat
+        self.update_backup('chat', chat)
 
     @property
     def owner(self):
@@ -124,8 +141,8 @@ class VoiceClass:
 
     @owner.setter
     def owner(self, owner):
-        self.save()
         self._owner = owner
+        self.update_backup('owner', owner)
 
     @property
     def mess(self):
@@ -133,8 +150,8 @@ class VoiceClass:
 
     @mess.setter
     def mess(self, mess):
-        self.save()
         self._mess = mess
+        self.update_backup('mess', mess)
 
     @property
     def content(self):
@@ -142,8 +159,8 @@ class VoiceClass:
 
     @content.setter
     def content(self, content):
-        self.save()
         self._content = content
+        self.update_backup('content', content)
 
     @property
     def date(self):
@@ -151,5 +168,5 @@ class VoiceClass:
 
     @date.setter
     def date(self, date):
-        self.save()
         self._date = date
+        self.update_backup('date', date)

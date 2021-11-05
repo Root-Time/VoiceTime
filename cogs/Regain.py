@@ -2,6 +2,7 @@ import json
 
 from discord.ext import commands
 
+from Module.set_database import delete_voice_backup
 from classes.voice_class import VoiceClass
 
 
@@ -15,14 +16,13 @@ class Regain(commands.Cog):
             voices = json.load(f)
 
         for voice in voices.values():
-            print(voice)
-
             guild = self.client.get_guild(voice.get('guild'))
             owner = guild.get_member(voice.get('owner'))
             vc_id = voice.get('id')
             privat = voice.get('privat')
             vc = guild.get_channel(vc_id)
             if not vc:
+                delete_voice_backup(vc_id)
                 continue
             vt: VoiceClass = VoiceClass(owner, vc, privat)
 
@@ -39,6 +39,7 @@ class Regain(commands.Cog):
 
                 await vt.delete()
 
+            delete_voice_backup(vc_id)
             self.client.loop.create_task(delete())
 
         print('Module >>> Regain')
