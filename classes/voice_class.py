@@ -7,7 +7,7 @@ from Module.set_database import create_voice_backup, update_voice_backup
 from Utils.embed import embed
 from Utils.language import language
 from classes.load_guild import LoadGuild
-from Module.get_database import voice, fl
+from Module.get_database import voice, fl, owner_vc_list
 
 
 class VoiceClass:
@@ -31,6 +31,7 @@ class VoiceClass:
 
         voice.setdefault(self.guild.id, []).append(self)
         self.create_backup()
+        owner_vc_list.setdefault(owner.id, []).append(self)
         # TODO save Class __DICT__ to DATABASE
 
     def rem(self, member):
@@ -73,12 +74,14 @@ class VoiceClass:
     def l(self, text):
         return language(text, self.lang)
 
+    # Recreate CHAT After Crash!
     def recreate(self, chat, mess, content, date):
         self.chat = chat
         self.mess = mess
         self.content = content
         self.date = date
 
+    # Create Backup to get Channel back
     def create_backup(self):
         save_dict = self.__dict__.copy()
         save_dict['owner'] = self.owner.id

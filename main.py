@@ -5,7 +5,7 @@ import json
 
 import yaml
 from discord.ext import commands
-from discord.ext.commands import CommandNotFound, MemberNotFound
+from discord.ext.commands import CommandNotFound, MemberNotFound, MissingRequiredArgument
 from discord_components import DiscordComponents
 
 from Module.get_database import get_client
@@ -23,6 +23,7 @@ INTENTS = discord.Intents.all()
 
 client: discord.client = commands.Bot(command_prefix=PREFIX, intents=INTENTS, description='Version 2.0.0a5-3rw8')
 get_client(client)
+
 
 @client.event
 async def on_ready():
@@ -42,6 +43,7 @@ async def on_ready():
                 name="Voice Temp Channel Bot"
             ))
             await asyncio.sleep(3)
+
     client.loop.create_task(status())
     DiscordComponents(client)
 
@@ -53,11 +55,13 @@ client.load_extension('events.VoiceJoin')
 
 # Commands
 client.load_extension("commands.Friends")
+client.load_extension("commands.Block")
 # TODO own cog for Friend & Block
 
 # Utils
 client.load_extension("cogs.Utils")
 client.load_extension('cogs.Regain')
+
 
 # bot.load_extension("cogs.newServer")
 # bot.load_extension("cogs.Languages_Converter")#
@@ -70,14 +74,21 @@ async def main(ctx):
 
 
 # Error Handling
-@client.command()
+@client.event
 async def on_command_error(ctx, error):
-    if isinstance(error, CommandNotFound):
+    if type(error) in [CommandNotFound]:
         return
-    if isinstance(error, MemberNotFound):
-        return await ctx.channel.send(embed=embed('Error', 'Du hast keinen gültigen Namen eingegeben', 10038562),
-                                      delete_after=5)
-    raise error
 
+    if isinstance(error, MissingRequiredArgument):
+        if 'member is a required argument that is missing.' in str(error):
+            await ctx.reply(embed=embed(None, 'Du musst noch einen Member eintragen!', 'r'), delete_after=15)
+            return
+        await ctx.reply(embed=embed(None, 'Du hast einen Parameter vergessen!', 'r'), delete_after=15)
+        return
+
+    if isinstance(error, MemberNotFound):
+        return await ctx.channel.reply(embed=embed(None, 'Du hast keinen gültigen Namen eingegeben', 10038562),
+                                       delete_after=5)
+    raise error
 
 client.run(Token)

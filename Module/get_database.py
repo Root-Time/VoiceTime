@@ -23,8 +23,12 @@ with open('Data/user.yaml', 'r') as f:
     us = yaml.load(f, Loader=yaml.FullLoader) or {}
 
 with open('Data/voice.json', 'r') as f:
-    voice_backups = json.load(f)
+    voice_backups = json.load(f) or {}
+
+with open('Data/block.json', 'r') as f:
+    bl = json.load(f) or {}
 
 # Temp Data
 voice = {}
 temp_guild = {}
+owner_vc_list = {}

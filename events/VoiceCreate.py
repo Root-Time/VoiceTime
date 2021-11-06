@@ -7,7 +7,7 @@ from Utils.embed import embed
 from Utils.language import language
 from classes.voice_class import VoiceClass
 from classes.load_guild import LoadGuild
-from Module.get_database import us
+from Module.get_database import us, bl
 from cogs.Error_Hanlder import NoData
 
 
@@ -78,6 +78,14 @@ class VoiceCreate(commands.Cog):
 
         vt: VoiceClass = VoiceClass(member, vc, privat)
         await vc.set_permissions(member, connect=True, manage_channels=True)
+
+        # Blocked User
+        for blocked_member_id in bl.get(member):
+            blocked_member = guild.get_member(blocked_member_id)
+            if not blocked_member:
+                continue
+
+            await vc.set_permissions(member, connect=False)
 
         # CHECK Sever && User enabled CHAT?
         if c.chat and user_setting.get('chat') is not False:

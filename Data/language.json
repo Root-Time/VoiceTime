@@ -410,5 +410,8 @@
     },
     "{} und {} seit nun Freunde": {
         "de": "{} und {} seit nun Freunde"
+    },
+    "{}. Du hast {} nicht geblockt.": {
+        "de": "{}. Du hast {} nicht geblockt."
     }
 }
