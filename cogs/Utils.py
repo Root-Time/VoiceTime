@@ -1,9 +1,6 @@
-import discord, json, copy
 from discord.ext import commands
 
 from Module.get_database import voice
-from classes.load_guild import LoadGuild
-from classes.voice_class import VoiceClass
 
 
 class Utils(commands.Cog):
@@ -25,6 +22,8 @@ class Utils(commands.Cog):
 
     @commands.command()
     async def save(self, ctx):
+        pass  # Method not actual
+        """
         member = ctx.author
         guild = ctx.guild
         channel = member.voice.channel if member.voice else None
@@ -37,6 +36,7 @@ class Utils(commands.Cog):
         vt: VoiceClass = c.get_channel(channel)
 
         print('Data', vt.save())
+        """
 
 
 def setup(client):

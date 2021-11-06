@@ -21,13 +21,15 @@ class Regain(commands.Cog):
             vc_id = voice.get('id')
             privat = voice.get('privat')
             vc = guild.get_channel(vc_id)
+            chat = guild.get_channel(voice.get('chat'))
             if not vc:
                 delete_voice_backup(vc_id)
+                if chat:
+                    await chat.delete()
                 continue
             vt: VoiceClass = VoiceClass(owner, vc, privat)
 
-            if voice.get('chat'):
-                chat = guild.get_channel(voice.get('chat'))
+            if chat:
                 mess = await chat.fetch_message(voice.get('mess'))
                 content = voice.get('content')
                 date = voice.get('date')

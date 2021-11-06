@@ -413,5 +413,20 @@
     },
     "{}. Du hast {} nicht geblockt.": {
         "de": "{}. Du hast {} nicht geblockt."
+    },
+    "Angefragt..": {
+        "de": "Angefragt.."
+    },
+    "Das kannst du nicht!": {
+        "de": "Das kannst du nicht!"
+    },
+    "Deaktiviere Benachrichtigungen": {
+        "de": "Deaktiviere Benachrichtigungen"
+    },
+    "Erfolgreich": {
+        "de": "Erfolgreich"
+    },
+    "Deine Anfrage w\u00fcrde abgelehnt!": {
+        "de": "Deine Anfrage w\u00fcrde abgelehnt!"
     }
 }

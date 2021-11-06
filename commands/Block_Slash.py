@@ -1,7 +1,6 @@
 import discord
-from discord import Member, Guild, ButtonStyle, Interaction
+from discord import Member, Guild, ApplicationContext, Interaction, ButtonStyle
 from discord.ext import commands
-from discord.ext.commands import Context
 
 from Module.get_database import bl, owner_vc_list
 from Module.set_database import update_bl
@@ -11,33 +10,33 @@ from classes.button import view, NewButton, clear_button
 from classes.load_guild import LoadGuild
 
 
-class Block(commands.Cog):
+class BlockSlash(commands.Cog):
     def __init__(self, client):
         self.client = client
 
     # Block
-    @commands.command()
+    @commands.slash_command(name='block', description='Block a user')
     async def block(self, ctx, member: discord.Member):
-        author: Member = ctx.author
+        author: Member = ctx.user
         guild: Guild = ctx.guild
 
         if member.bot:
             return
 
         if author == member:
-            await ctx.channel.send(embed=error('Du kannst dich nicht selber blockieren!'),
-                                   delete_after=5)
+            await ctx.respond(embed=error('Du kannst dich nicht selber blockieren!'),
+                              delete_after=5)
             return
 
         if member.id in bl.get(author.id, []):
-            await ctx.channel.send(embed=embed('Block List', f'<@{member.id}> ist schon blockiert!', 10038562),
-                                   delete_after=5)
+            await ctx.respond(embed=embed('Block List', f'<@{member.id}> ist schon blockiert!', 10038562),
+                              delete_after=5)
             return
 
         bl.setdefault(author.id, []).append(member.id)
         update_bl()
 
-        await ctx.channel.send(
+        await ctx.respond(
             embed=embed('Block List', f'{member.mention} würde erfolgreich blockiert!', 9936031), delete_after=5)
 
         # Remove Member from VC System
@@ -49,9 +48,9 @@ class Block(commands.Cog):
                     if member in _voice().members:
                         await member.move(None)
 
-    @commands.command()
-    async def unblock(self, ctx: Context, member: Member):
-        author: Member = ctx.author
+    @commands.slash_command(name='unblock', description='unblock a User')
+    async def unblock(self, ctx: ApplicationContext, member: Member):
+        author: Member = ctx.user
         guild: Guild = ctx.guild
 
         if member.bot:
@@ -61,36 +60,36 @@ class Block(commands.Cog):
         l = lambda text: language(text, c.lang)
 
         if member == author:
-            await ctx.channel.send(embed=error('Du kannst dich nicht selber entblocken?!'),
-                                   delete_after=5)
+            await ctx.respond(embed=error('Du kannst dich nicht selber entblocken?!'),
+                              delete_after=5)
             return
 
         if member.id not in bl.get(author.id, []):
-            await ctx.send(embed=error(l('{}. Du hast {} nicht geblockt.').format(author.mention, member.mention)),
-                           delete_after=15)
+            await ctx.respond(embed=error(l('{}. Du hast {} nicht geblockt.').format(author.mention, member.mention)),
+                              delete_after=15)
             return
 
         bl[author.id].remove(member.id)
         update_bl()
 
-        await ctx.send(
+        await ctx.respond(
             embed=embed('Block List', l('{} wurde aus {} Block Liste entfernt').format(member.mention, author.mention),
                         9936031),
             delete_after=7
         )
 
-    @commands.command()
-    async def bl(self, ctx, member: discord.Member = None):
+    @commands.slash_command(name='blocklist', description='Show a Block List')
+    async def bl(self, ctx: ApplicationContext, member: discord.Member = None):
         if not member:
-            member = ctx.author
+            member = ctx.user
 
         guild: Guild = ctx.guild
 
         author_bl = bl.get(member.id)
         if not author_bl:
-            embed1 = embed('Block List', f'<@{member.id}> hat noch niemand blockiert!', 10038562)
-            embed1.set_author(name=member.display_name, icon_url=member.display_avatar.url)
-            await ctx.channel.send(embed=embed1, delete_after=10)
+            embed1 = embed('Blocklist', f'<@{member.id}> hat noch niemand blockiert!', 10038562)
+            embed1.set_author(name=member.display_name, icon_url=member.avatar_url)
+            await ctx.respond(embed=embed1, delete_after=10)
             return
 
         c = LoadGuild(guild)
@@ -99,7 +98,7 @@ class Block(commands.Cog):
         text = '\n'.join(f'<@{friend}>' for friend in author_bl)
 
         friends_list_embed = discord.Embed(title='Block List', description=text, colour=15105570)
-        friends_list_embed.set_author(name=member.display_name, icon_url=member.display_avatar.url)
+        friends_list_embed.set_author(name=member.display_name, icon_url=member.avatar_url)
 
         async def close_button(interaction: Interaction, _):
             if interaction.user in [ctx.author, member]:
@@ -118,4 +117,4 @@ class Block(commands.Cog):
 
 
 def setup(client):
-    client.add_cog(Block(client))
+    client.add_cog(BlockSlash(client))

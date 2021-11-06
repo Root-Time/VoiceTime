@@ -23,7 +23,7 @@ class VoiceLeave(commands.Cog):
         if not last:
             return
 
-        if last == _now:
+        if last.channel == _now.channel:
             return
 
         guild: Guild = member.guild
@@ -47,12 +47,12 @@ class VoiceLeave(commands.Cog):
 
         vt: VoiceClass = c.get_channel(channel)
 
-        if member not in vt.members:
+        if member not in vt.members and vt.privat:
             return
+        if member == vt.owner:
+            print('Debug')
+            vt.owner_disconnect()
         await vt.to_chat(member, False)
-
-
-
 
 
 def setup(client):

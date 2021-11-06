@@ -1,6 +1,6 @@
 import asyncio
 
-from discord import Guild, Client, Member
+from discord import Guild, Member, Client
 
 from Module.creating_permission import create_channel
 from Utils.embed import embed
@@ -16,7 +16,7 @@ class LoadGuild:
         if not ss:
             raise Exception('NoData')
         self.guild = guild
-        self.client = client
+        self.client: Client = client
 
         # Possible NULL :: Check if exits
         self.config = self._get_ss('config', False)

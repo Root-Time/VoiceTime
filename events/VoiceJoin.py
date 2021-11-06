@@ -1,17 +1,18 @@
-import asyncio
-
 import discord
-from discord import Guild, VoiceChannel
+from discord import Guild, VoiceChannel, ButtonStyle, Interaction, Button
 from discord.ext import commands
-from discord_components import Button, ButtonStyle
+from discord.ui import View
 
-from Module.get_database import us, client, fl
-from Utils.embed import voice, error, info
+from Module.get_database import fl
+from Module.privat_message import pm
+from Utils.embed import voice, error
 from Utils.language import language
+from classes.button import NewButton, view
 from classes.load_guild import LoadGuild
 from classes.voice_class import VoiceClass
 
 
+# noinspection PyTypeChecker
 class VoiceJoin(commands.Cog):
     def __init__(self, client):
         self.client = client
@@ -30,7 +31,7 @@ class VoiceJoin(commands.Cog):
         if not now:
             return
 
-        if _ == now:
+        if _.channel == now.channel:
             return
 
         # GUILD Set bot up? Are Permissions right? Are all Channel exits?
@@ -55,6 +56,8 @@ class VoiceJoin(commands.Cog):
 
         # Check: already allowed
         if member in vt.members:
+            if member == vt.owner:
+                vt.owner_join()
             await vt.to_chat(member, True)
             return
 
@@ -81,133 +84,78 @@ class VoiceJoin(commands.Cog):
 
             self.client.loop.create_task(queue())
 
+        # Send Joining Message
         ping_mess = await c.setting.send(vt.owner.mention)
         await ping_mess.delete()
 
-        mess = await c.setting.send(
-            embed=voice(l('Darf {} beitreten?').format(member.mention)),
-            components=[
-                [Button(label=l('Ja'), style=ButtonStyle.blue, id='ja'),
-                 Button(label=l('Nein'), style=ButtonStyle.red, id='nein')]
-            ],
-            delete_after=30
-        )
-
-        # TODO convert to Async
-        # Request to Owner >> Member Join?
-        while True:
-            try:
-                event = await self.client.wait_for('button_click', check=lambda _event: _event.message == mess,
-                                                   timeout=30)
-            except asyncio.TimeoutError:
-                print('?')
-                # If Nobody pressed this button
-                if c.queue:
-                    if member in c.queue.members:
-                        await member.move_to(None)
-
-                await asyncio.sleep(1)
-                if guild.get_channel(channel.id):
-                    print('??')
+        # noinspection PyTypeChecker
+        async def join_request_button(interaction: Interaction, button: Button):
+            if interaction.user == vt.owner:
+                await interaction.message.delete()
+                if button.label == 'ja':
+                    vt.add(member)
                     await channel.set_permissions(member, connect=True)
-                return
 
-            if event.user == vt.owner:
-                await event.message.delete()
-                if event.component.id == 'ja':
-                    break
+                    if c.queue:
+                        if member in c.queue.members and guild.get_channel(channel.id):
+                            await member.move_to(channel)
+                            return
 
+                    link = await channel.create_invite(max_age=300)
+
+                    embed = voice(l(
+                        '**{}**\n'
+                        'Du kannst nun den Channel {} von {} beitreten'
+                    ).format(guild.name, channel.mention, vt.owner.mention))
+
+                    pm_view = view(
+                        NewButton(l('Beitreten'), ButtonStyle.url, url=str(link))
+                    )
+                    await pm(member, embed, pm_view)
+
+                # Action >> Nein
                 if c.queue:
                     if member in c.queue.members:
                         await member.move_to(None)
                 return
 
-            if event.user == member:
-                if event.component.id == 'ja':
-                    await event.respond(embed=error(l('Du kannst nicht dich selbst reinlassen?')))
-                    continue
+            if interaction.user == member:
+                if button.label == 'ja':
+                    await interaction.response.send_message(
+                        embed=error(l('Du kannst nicht dich selbst reinlassen?')),
+                        ephemeral=True,
+                        delete_after=10
+                    )
+                    return
+
                 await mess.delete()
 
                 if c.queue:
                     if member in c.queue.members:
                         await member.move_to(None)
 
-                await event.respond(
-                    embed=voice(l('In dem du auf Nein gedrückt hast, hast du die Anfrage abgebrochen!')))
+                await interaction.response.send_message(
+                    embed=voice(l('In dem du auf Nein gedrückt hast, hast du die Anfrage abgebrochen!')),
+                    ephemeral=True,
+                    delete_after=10
+                )
                 return
 
-            await event.respond(embed=error(l('Du bist nicht berechtigt diesen Knopf zu klicken!')))
-
-        vt.add(member)
-        await channel.set_permissions(member, connect=True)
-        # await vt.to_chat(member, True)
-
-        if c.queue:
-            if member in c.queue.members and guild.get_channel(channel.id):
-                await member.move_to(channel)
-                return
-
-        # Direct Message > Member
-        if not us.get(member.id, {}).get('PN', True):
-            print('Debug')
-            return
-
-        link = await channel.create_invite(max_age=300)
-        try:
-            dm_mess = await member.send(
-                embed=voice(l(
-                    '**{}**\n'
-                    'Du kannst nun den Channel {} von {} beitreten'
-                ).format(guild.name, channel.mention, vt.owner.mention)),
-                components=[
-                    [Button(label=l('Beitreten'), style=ButtonStyle.URL, url=str(link), id='2'),
-                     Button(label=l('Deaktiviere Benachrichtigung'), style=ButtonStyle.blue)]
-                ],
-                delete_after=300
+            await interaction.response.send_message(
+                embed=error(l('Du bist nicht berechtigt diesen Knopf zu klicken!')),
+                ephemeral=True,
+                delete_after=10
             )
-        except:  # TODO find the Error Name
-            return
 
-        while True:
-            try:
-                event = await self.client.wait_for(
-                    'button_click',
-                    check=lambda _event: _event.message == dm_mess,
-                    timeout=30
-                )
-                await event.respond(type=6)
-            except asyncio.TimeoutError:
-                await dm_mess.edit(
-                    components=[
-                        [Button(
-                            label=l('beitreten'),
-                            style=ButtonStyle.blue,
-                            id='1'
-                        ),
-                            Button(
-                                label=l('Deaktiviere Benachrichtigung'),
-                                style=ButtonStyle.URL, url=str(link),
-                                id='2',
-                                disabled=True
-                            )]
-                    ]
-                )
-                return
-            break
-
-        if member.id not in us.keys():
-            us[member.id] = {}
-
-        us[member.id]['PN'] = False
-
-        await member.send(embed=voice(l(
-            'Private Benachrichtigung wurde deaktiviert!'), 'green'
-        ))
-
-        await member.send(embed=info(l(
-            'Wenn du sie wieder aktivieren willst, gehe auf einem Server und gebe `//set notification on` ein.'
-        )))
+        mess = await c.setting.send(
+            embed=voice(l('Darf {} beitreten?').format(member.mention)),
+            view=view(
+                NewButton(l('ja'), ButtonStyle.primary, join_request_button),
+                NewButton(l('Nein'), ButtonStyle.danger, join_request_button)
+            ),
+            delete_after=30
+        )
 
 
-def setup(client):
-    client.add_cog(VoiceJoin(client))
+def setup(_client):
+    _client.add_cog(VoiceJoin(_client))
