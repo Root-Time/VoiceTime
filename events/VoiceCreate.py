@@ -46,7 +46,7 @@ class VoiceCreate(commands.Cog):
 
         if c.channel_cooldown(member):
             if member.voice:
-                await member.move_to(None)
+                await member.move_to(None, reason='He is on Cooldown!')
             try:
                 await member.send(embed=embed('VoiceTime', l('Du bist auf cooldown!'), 'r'))
             except Exception:  # Forget the Error xD
@@ -80,7 +80,7 @@ class VoiceCreate(commands.Cog):
         await vc.set_permissions(member, connect=True, manage_channels=True)
 
         # Blocked User
-        for blocked_member_id in bl.get(member):
+        for blocked_member_id in bl.get(member, []):
             blocked_member = guild.get_member(blocked_member_id)
             if not blocked_member:
                 continue
@@ -129,7 +129,8 @@ class VoiceCreate(commands.Cog):
 
             # User JOIN before finish Text Channel
             if vt.queue:
-                await vt.to_chat(member, True)
+                for user in vt.queue:
+                    await vt.to_chat(user, True)
 
         # Delete Voice Channel
         if vc.members:

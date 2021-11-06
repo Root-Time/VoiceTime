@@ -12,7 +12,7 @@ def embed(title, description, c=0) -> discord.Embed:
     elif c in ['orange', 'o']:
         c = 15105570  # orange
     if title:
-        return discord.Embed(title=False, description=description, colour=c)
+        return discord.Embed(title=title, description=description, colour=c)
     return discord.Embed(description=description, colour=c)
 
 

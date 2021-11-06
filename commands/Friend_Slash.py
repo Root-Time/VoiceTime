@@ -13,38 +13,38 @@ from Utils.language import language
 from classes.load_guild import LoadGuild
 
 
-class Friends(commands.Cog):
+class FriendSlash(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command(aliases=['request', 'friend'])
-    async def add(self, ctx, member: Member):
-        author: Member = ctx.author
+    # ADD FRIEND
+    @commands.slash_command(name='add',  description='Add a new voice friend!', guild_ids=[410475041277345853])
+    async def add(self, ctx: ApplicationContext, member: discord.Member):
+        author: Member = ctx.user
         guild: Guild = ctx.guild
-        if ctx.author.bot:
+        if author.bot:
             return
 
         if author == member:
-            return await ctx.send(
-                embed=embed('Error', 'Du kannst dir selber keine Freundschaftsanfrage schicken!', 10038562),
+            return await ctx.respond(
+                embed=empty('Du kannst dir selber keine Freundschaftsanfrage schicken!', 10038562),
                 delete_after=5)
 
         c: LoadGuild = LoadGuild(guild)
         l = lambda text: language(text, c.lang)
 
         if member.id in fl.get(author.id, []):
-            await ctx.channel.send(
+            await ctx.respond(
                 embed=embed('Friend System', f'<@{author.id}> und <@{member.id}> sind schon befreundet!', 10038562),
                 delete_after=5)
             return
 
-        mess_ping = await ctx.send(f'{member.mention}')
-        await mess_ping.delete()
+        mess: Interaction = await ctx.respond(member.mention)
 
         mess = await ctx.channel.send(
             embed=embed(
                 'Friend System',
-                f'<@{member.id}>\n<@{ctx.author.id}> hat dir eine Freundschaftsanfrage geschickt!',
+                f'<@{member.id}>\n<@{author.id}> hat dir eine Freundschaftsanfrage geschickt!',
                 'b'
             ),
             components=[
@@ -77,26 +77,26 @@ class Friends(commands.Cog):
                        delete_after=15)
 
     # REMOVE FRIEND
-    @commands.command(aliases=['rem'])
-    async def remove(self, ctx: Context, member: discord.Member):
-        author: Member = ctx.author
+    @commands.slash_command(name='remove', description='Remove a Friend!')
+    async def remove(self, ctx: ApplicationContext, member: discord.Member):
+        author: Member = ctx.user
         guild: Guild = ctx.guild
 
         c: LoadGuild = LoadGuild(guild)
 
         if member is author:
-            await ctx.channel.send(
-                embed=embed('Error', 'Du kannst dich nicht selbst von deiner Freundesliste enfernen!', 10038562),
+            await ctx.respond(
+                embed=embed(None, 'Du kannst dich nicht selbst von deiner Freundesliste enfernen!', 10038562),
                 delete_after=5)
             return
 
         if author.id not in fl.keys():
-            await ctx.channel.send(embed=embed('Friend System', f'<@{author.id}> hat noch keine Freunde!', 10038562),
-                                   delete_after=5)
+            await ctx.respond(embed=embed('Friend System', f'<@{author.id}> hat noch keine Freunde!', 10038562),
+                              delete_after=5)
             return
 
         if member.id not in fl[author.id]:
-            await ctx.channel.send(
+            await ctx.respond(
                 embed=embed('Friend System', f'<@{author.id}> und <@{member.id}> wart nie Freunde!', 10038562),
                 delete_after=5)
             return
@@ -105,17 +105,17 @@ class Friends(commands.Cog):
         fl.get(member.id).remove(author.id)
         update_fl()
 
-        await ctx.channel.send(
+        await ctx.respond(
             embed=embed('Friend System', f'<@{member.id}> und <@{author.id}> sind keine Freunde mehr!', 'o'),
             delete_after=5)
 
         # await c.logs.send(embed=embed('Friend System', f'<@{author.id}> hat <@{member.id}> von seiner Freundesliste
         # entfernt\n{datetime.datetime.now().strftime("%H:%M %d/%m/%Y")}'))
 
-    @commands.command()
-    async def load(self, ctx, member: discord.Member = None):
+    @commands.slash_command(name='load', description='Load a friend list')
+    async def load(self, ctx: ApplicationContext, member: discord.Member = None):
         if not member:
-            member = ctx.author
+            member = ctx.user
 
         guild: Guild = ctx.guild
 
@@ -123,7 +123,7 @@ class Friends(commands.Cog):
         if not author_fl:
             embed1 = embed('Friend List', f'<@{member.id}> hat noch keine Freunde!', 10038562)
             embed1.set_author(name=member.display_name, icon_url=member.display_avatar.url)
-            await ctx.channel.send(embed=embed1, delete_after=10)
+            await ctx.respond(embed=embed1, delete_after=10)
             return
 
         c = LoadGuild(guild)
@@ -134,7 +134,7 @@ class Friends(commands.Cog):
         friends_list_embed = discord.Embed(title='Friend List', description=text, colour=15105570)
         friends_list_embed.set_author(name=member.display_name, icon_url=member.display_avatar.url)
 
-        mess = await ctx.send(embed=friends_list_embed, components=[[
+        mess = await ctx.respond(embed=friends_list_embed, components=[[
             Button(label='Schließen', style=ButtonStyle.red)
         ]])
 
@@ -153,4 +153,4 @@ class Friends(commands.Cog):
 
 
 def setup(client):
-    client.add_cog(Friends(client))
+    client.add_cog(FriendSlash(client))

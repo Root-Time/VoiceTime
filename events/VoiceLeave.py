@@ -47,12 +47,9 @@ class VoiceLeave(commands.Cog):
 
         vt: VoiceClass = c.get_channel(channel)
 
-        if member not in vt.members:
+        if member not in vt.members and vt.privat:
             return
         await vt.to_chat(member, False)
-
-
-
 
 
 def setup(client):
