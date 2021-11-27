@@ -1,11 +1,18 @@
 from discord.ext import commands
+from discord.ext.commands import Context
 
-from Module.get_database import voice
+from Module.get_database import voice, admins
+from Utils.embed import error, embed
+from classes.load_guild import LoadGuild
 
 
-class Utils(commands.Cog):
+class DevTools(commands.Cog):
     def __init__(self, client):
         self.client = client
+
+    @commands.Cog.listener()
+    async def on_ready(self):
+        print('Module >>> DevTools')
 
     @commands.command()
     async def delete(self, ctx):
@@ -38,6 +45,22 @@ class Utils(commands.Cog):
         print('Data', vt.save())
         """
 
+    @commands.command()
+    async def vc_stats(self, ctx: Context):
+        if ctx.author.id not in admins:
+            await ctx.send(embed=error('Sry only for Bot Administrator'))
+            return
+
+        if ctx.author.voice:
+            c = LoadGuild(ctx.guild)
+            vt = c.get_channel(ctx.author.voice.channel)
+            await ctx.send(embed=embed(
+                vt().name,
+                f"""
+                Owner = {vt.owner};
+                Member = {vt.members}
+                """))
+
 
 def setup(client):
-    client.add_cog(Utils(client))
+    client.add_cog(DevTools(client))

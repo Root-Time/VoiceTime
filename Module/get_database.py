@@ -1,7 +1,6 @@
 import json
 
 import yaml
-import sqlite3
 
 client = None
 
@@ -27,6 +26,10 @@ with open('Data/voice.json', 'r') as f:
 
 with open('Data/block.json', 'r') as f:
     bl = json.load(f) or {}
+
+with open('Data/admins.yaml', 'r') as f:
+    admins = yaml.load(f, Loader=yaml.FullLoader).get('Admin', {})
+
 
 # Temp Data
 voice = {}

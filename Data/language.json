@@ -428,5 +428,38 @@
     },
     "Deine Anfrage w\u00fcrde abgelehnt!": {
         "de": "Deine Anfrage w\u00fcrde abgelehnt!"
+    },
+    "Du bist nicht berechtigt diesen Knopf zu klicken!": {
+        "de": "Du bist nicht berechtigt diesen Knopf zu klicken!"
+    },
+    "{}\n ist nun zu claimen": {
+        "de": "{}\n ist nun zu claimen"
+    },
+    "Du musst in einem Channel sein um ihn zu claimen!": {
+        "de": "Du musst in einem Channel sein um ihn zu claimen!"
+    },
+    "Du musst in diesen Channel sein um ihn zu claimen!": {
+        "de": "Du musst in diesen Channel sein um ihn zu claimen!"
+    },
+    "{}\nDu bist nun der neue Owner vom Channel {}": {
+        "de": "{}\nDu bist nun der neue Owner vom Channel {}"
+    },
+    "Der Owner {} ist immer noch im Channel drin!": {
+        "de": "Der Owner {} ist immer noch im Channel drin!"
+    },
+    "Du kannst nur einen Voice Channel claimen wenn du auch in dem drin bist!": {
+        "de": "Du kannst nur einen Voice Channel claimen wenn du auch in dem drin bist!"
+    },
+    "Du musst in einem Voice Channel gehen wo man claimen kann!": {
+        "de": "Du musst in einem Voice Channel gehen wo man claimen kann!"
+    },
+    "Du musst noch <t:{}:R> also {} warten bis du den Channel claimen kannst!": {
+        "de": "Du musst noch <t:{}:R> also {} warten bis du den Channel claimen kannst!"
+    },
+    "Du kannst den Channel in <t:{}:R> ({} Sekunden) claimen": {
+        "de": "Du kannst den Channel in <t:{}:R> ({} Sekunden) claimen"
+    },
+    "Du brauchst einen Channel um jemanden Owner zu transferieren": {
+        "de": "Du brauchst einen Channel um jemanden Owner zu transferieren"
     }
 }

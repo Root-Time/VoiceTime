@@ -6,8 +6,7 @@ import json
 import yaml
 from discord import ButtonStyle, Button, Interaction, Member, User
 from discord.ext import commands
-from discord.ext.commands import CommandNotFound, MemberNotFound, MissingRequiredArgument
-from discord.ui import View
+from discord.ext.commands import CommandNotFound, MemberNotFound, MissingRequiredArgument, Context
 
 from Module.get_database import get_client
 from Utils.embed import embed, empty
@@ -25,6 +24,12 @@ INTENTS = discord.Intents.all()
 
 client: discord.client = commands.Bot(command_prefix=PREFIX, intents=INTENTS, description='Version 2.0.0a5-3rw8')
 get_client(client)
+
+
+@client.command()
+async def test(ctx: Context):
+    print(ctx)
+    channel = ctx.author.voice.channel
 
 
 # DiscordComponents(client)
@@ -69,7 +74,6 @@ async def ola(ctx):
     print(member.display_name)
 
 
-
 @client.event
 async def on_ready():
     print(f'>>>>  {client.user.name}  <<<<')
@@ -99,18 +103,17 @@ client.load_extension('events.VoiceJoin')
 #
 # # Commands
 client.load_extension("commands.Friends")
-client.load_extension("commands.Friend_Slash")
+# client.load_extension("commands.Friend_Slash")
 client.load_extension("commands.Block")
-client.load_extension("commands.Block_Slash")
+# client.load_extension("commands.Block_Slash")
+client.load_extension("commands.VoiceCommands")
 # # TODO own cog for Friend & Block
 #
 # # Utils
-client.load_extension("cogs.Utils")
+client.load_extension("cogs.DevTools")
 client.load_extension('cogs.Regain')
 
 
-#
-#
 # # bot.load_extension("cogs.newServer")
 # # bot.load_extension("cogs.Languages_Converter")#
 # # bot.load_extension("cogs.setting")

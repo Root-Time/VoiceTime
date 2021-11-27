@@ -24,6 +24,10 @@ def empty(text, c='b'):
     return embed(None, text, c)
 
 
+def vc_embed(text, color="blue"):
+    return embed('VoiceTime', text, color)
+
+
 def voice(text, color="blue"):
     return embed('VoiceTime', text, color)
 

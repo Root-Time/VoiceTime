@@ -1,5 +1,6 @@
 import asyncio
 
+import discord
 from discord import Guild, Member, Client
 
 from Module.creating_permission import create_channel
@@ -33,6 +34,9 @@ class LoadGuild:
         self.lang = self.ss['lang']
         self.friend = self.ss['friends']
 
+        # Setting
+        self.claim_time = self.ss.get('claim_time')
+
         # Temp Data
         self.voice = voice.setdefault(self.guild.id, [])
         self.channels = [vt() for vt in self.voice]
@@ -45,9 +49,10 @@ class LoadGuild:
         self.create_channel_cooldown = self.temp.get('cooldown')
 
     def get_channel(self, voice_channel):
-        for vt in self.voice:
-            if voice_channel == vt():
-                return vt
+        if isinstance(voice_channel, discord.VoiceChannel):
+            for vt in self.voice:
+                if voice_channel == vt() or voice_channel == vt.owner:
+                    return vt
 
         # Shorter //Note Maybe use Later
         # return (vt for vt in self.voice if voice_channel == vt())

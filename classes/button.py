@@ -21,8 +21,6 @@ def view(*args):
     for button in args:
         _view.add_item(button)
 
-    print(_view)
-    print(type(_view))
     return _view
 
 

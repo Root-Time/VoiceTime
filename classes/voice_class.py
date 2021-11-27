@@ -2,10 +2,10 @@ import asyncio
 from datetime import datetime, timedelta
 
 import discord
-from discord import Member, Guild, ButtonStyle, Interaction
+from discord import Member, Guild, ButtonStyle, Interaction, Button
 
 from Module.set_database import create_voice_backup, update_voice_backup
-from Utils.embed import embed
+from Utils.embed import embed, vc_embed
 from Utils.language import language
 from classes.button import view, NewButton
 from classes.load_guild import LoadGuild
@@ -38,47 +38,131 @@ class VoiceClass:
         owner_vc_list.setdefault(owner.id, []).append(self)
         # TODO save Class __DICT__ to DATABASE
 
-    def rem(self, member):
+    def remove(self, member):
         self.members.remove(member)
+        self.remove_chat(member)
 
     def add(self, member):
         self.members.add(member)
 
+    def disconnect(self, member: Member = None):
+        """
+        Owner or Member disconnect
+        """
+
+        if member == self.owner:
+            self.disconnect_chat(member)
+
+            async def wait():
+                await asyncio.sleep(self.c.claim_time)
+                await self.send_claim_message()
+            client.loop.create_task(wait())
+            return
+
+        self.remove(member)
+
+    async def send_claim_message(self):
+        """
+        Coroutine
+        Send the claiming Message
+        """
+
+        async def claim_button(interaction: Interaction, button: Button):
+            if not interaction.user.voice:
+                await interaction.response.send_message(
+                    self.l('Du musst in einem Channel sein um ihn zu claimen!'), ephemeral=True
+                )
+                return
+            if interaction.user not in self.members or interaction.user.voice.channel != self():
+                await interaction.response.send_message(
+                    self.l('Du musst in diesen Channel sein um ihn zu claimen!'), ephemeral=True)
+                return
+
+            self.owner = interaction.user
+
+            self.claim_mess.edit(
+                embed=vc_embed(
+                    self.l('{}\nDu bist nun der neue Owner vom Channel {}')
+                        .format(interaction.user.mention, self().mention)
+                ), view=None
+            )
+
+        channel = self.chat or self.c.setting
+        self.claim_mess = await channel.send(
+            embed=vc_embed(self.l('{}\n ist nun zu claimen').format(self().mention)),
+            view=view(
+                NewButton('claim', ButtonStyle.primary, claim_button)
+            )
+        )
+
+    # Claiming
     def owner_disconnect(self):
+        print('Wurde ausgelöst')
         self.claim_cooldown = datetime.now() + timedelta(seconds=300)  # Todo Timedelta to Serverside
 
         # Claim > Button Event 
         async def wait():
             await asyncio.sleep(300)
             if not self.claim_cooldown:
+                return
 
-                async def claim_button(interaction: Interaction, _):
-                    if interaction.user not in self.members or interaction.user.voice.channel != self():
-                        await interaction.response.send_message(
-                            self.l('Du musst in diesen Channel sein um ihn zu claimen!'), ephemeral=True)
-                        return
+            async def claim_button(interaction: Interaction, _):
+                if not interaction.user.voice:
+                    await interaction.response.send_message(
+                        self.l('Du musst in einem Channel sein um ihn zu claimen!'), ephemeral=True)
+                    return
+                if interaction.user not in self.members or interaction.user.voice.channel != self():
+                    await interaction.response.send_message(
+                        self.l('Du musst in diesen Channel sein um ihn zu claimen!'), ephemeral=True)
+                    return
 
-                    # Change Owner
-                    self.owner = interaction.user
-                    await self.claim_mess.edit(
-                        embed=voice(
-                            self.l('{}\nDu bist nun der neue Owner vom Channel {}')
-                                .format(interaction.user.mention, self().mention)
-                        ), view=None
-                    )
-                    # TODO Add More Function
+                # Change Owner
+                owner_vc_list.get(self.owner).remove(self)
 
-                self.claim_mess = await self.c.setting.send(
-                    embed=voice('{}\n ist nun zu claimen'),
-                    view=view(
-                        NewButton('claim', ButtonStyle.primary, claim_button)
-                    )
+                self.owner = interaction.user
+                await self.claim_mess.edit(
+                    embed=vc_embed(
+                        self.l('{}\nDu bist nun der neue Owner vom Channel {}')
+                            .format(interaction.user.mention, self().mention)
+                    ), view=None
                 )
+                # TODO Add More Function
+
+            self.claim_mess = await self.c.setting.send(
+                embed=vc_embed(self.l('{}\n ist nun zu claimen').format(self().mention)),
+                view=view(
+                    NewButton('claim', ButtonStyle.primary, claim_button)
+                )
+            )
 
         client.loop.create_task(wait())
 
     def owner_join(self):
         self.claim_cooldown = None
+
+    def remove_chat(self, member):
+        """
+        Remove And Disable Chat for Member
+        """
+        self.disconnect_chat(member)
+
+        if self.chat:
+            client.loop.create_task(self.chat.set_permissions(member, view=False))
+
+    def add_chat(self, member):
+        """
+        Add and Enable Chat for Member
+        """
+        self.connect_chat(member)
+
+        if self.chat:
+            client.loop.create_task(self.chat.set_permissions(member, view=False))
+
+    def connect_chat(self, member):
+        self.to_chat(member, True)
+
+    def disconnect_chat(self, member):
+        self.to_chat(member, False)
 
     # Voice Channel Join Leave Message
     async def to_chat(self, member: discord.Member, type: bool):
@@ -86,7 +170,6 @@ class VoiceClass:
             self.queue.append(member)
             return
         context = self.l('ist beigetreten') if type else self.l('hat verlassen')
-        await self.chat.set_permissions(member, view_channel=True)
 
         await self().set_permissions(member, connect=True)
         is_owner = '**(owner)**' if member == self.owner else ''
@@ -154,7 +237,10 @@ class VoiceClass:
         update_voice_backup(self.id, update_param, value)
 
     async def delete(self, type=False):
-        if self.chat:
+        if self in owner_vc_list.get(self.owner, []):
+            owner_vc_list.get(self.owner).remove(self)
+
+        if self.guild.get_channel(self.chat.id):
             await self.chat.delete()
 
         if self.claim_mess:
@@ -172,9 +258,9 @@ class VoiceClass:
             await self().delete()
 
     def __call__(self):
-        vc = self.guild.get_channel(self.id)
+        vc: discord.VoiceChannel = self.guild.get_channel(self.id)
         if not vc:
-            self.delete(True)
+            client.loop.create_task(self.delete(True))
         return vc
 
     @property

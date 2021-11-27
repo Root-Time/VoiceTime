@@ -49,8 +49,8 @@ class VoiceJoin(commands.Cog):
             return
 
         vt: VoiceClass = c.get_channel(channel)
-
         if not vt.privat or member.bot:
+            vt.add(member)
             await vt.to_chat(member, True)
             return
 
@@ -62,6 +62,7 @@ class VoiceJoin(commands.Cog):
             return
 
         if member.id in fl.get(vt.owner.id, []):
+            vt.add(member)
             await vt.to_chat(member, True)
             return
 
@@ -122,7 +123,7 @@ class VoiceJoin(commands.Cog):
             if interaction.user == member:
                 if button.label == 'ja':
                     await interaction.response.send_message(
-                        embed=error(l('Du kannst nicht dich selbst reinlassen?')),
+                        embed=error(l('Du kannst    nicht dich selbst reinlassen?')),
                         ephemeral=True,
                         delete_after=10
                     )

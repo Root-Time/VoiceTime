@@ -9,6 +9,8 @@ from classes.voice_class import VoiceClass
 from classes.load_guild import LoadGuild
 from Module.get_database import us, bl
 
+def foo():
+    42
 
 class VoiceCreate(commands.Cog):
     def __init__(self, client):
