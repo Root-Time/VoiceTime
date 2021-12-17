@@ -101,6 +101,7 @@ client.load_extension("events.VoiceCreate")
 client.load_extension('events.VoiceLeave')
 client.load_extension('events.VoiceJoin')
 #
+
 # # Commands
 client.load_extension("commands.Friends")
 # client.load_extension("commands.Friend_Slash")
@@ -108,7 +109,7 @@ client.load_extension("commands.Block")
 # client.load_extension("commands.Block_Slash")
 client.load_extension("commands.VoiceCommands")
 # # TODO own cog for Friend & Block
-#
+
 # # Utils
 client.load_extension("cogs.DevTools")
 client.load_extension('cogs.Regain')
